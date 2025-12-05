@@ -35,26 +35,10 @@ The password is the count of how many times the dial lands on 0 after any rotati
 
 ### Part 2
 
-*Coming soon after unlocking...*
+Count also the times you pass through 0.
 
-## Example
 
+## Example usage
+```bash
+python solution.py --file input.txt
 ```
-Input:
-L68
-L30
-R48
-
-Execution:
-50 -> L68 -> 82
-82 -> L30 -> 52
-52 -> R48 -> 0 ✓
-
-Zero count: 1
-```
-
-## Lessons Learned
-
-- Python's modulo operator handles negative numbers correctly for circular arithmetic
-- Breaking down the problem with small examples helps verify logic
-- Wrapping logic is simpler with modulo than manual if-statements

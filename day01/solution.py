@@ -4,9 +4,12 @@ import argparse
 def solve_safe_password(rotation_text):
     """
     Function to solve the safe password problem.    
+    
     Args:
         rotattion_text (str): The text representing the rotation instructions.
-
+    
+    Returns:
+        tuple: (zero_counts, through_zero_counts)
     """
     position = 50
     zero_counts = 0
@@ -25,14 +28,18 @@ def solve_safe_password(rotation_text):
         distance = int(line[1:]) # int number
         passes = 0 
         # print("\t", i, direction, distance)
+        
+        old_position = position
 
         if direction == "L": # subtraction
             position = (position - distance) % 100
 
+            # how many times we pass through zero: when going from higher to lower numbers
             if distance >= 100:
                 passes = distance // 100
             
-            if position < distance % 100:
+            # check if we cross zero in the remainder. We cross if:
+            if old_position < (distance % 100):
                 passes += 1
 
         elif direction == "R": # addition
@@ -41,15 +48,16 @@ def solve_safe_password(rotation_text):
             if distance >= 100:
                 passes = distance // 100
             
-            if position + (distance % 100) >= 100:
+            if old_position + (distance % 100) >= 100:
                 passes += 1
         
         through_zero_counts += passes
 
-        # print(f"\t\t{position = }")
 
         if position == 0:
             zero_counts += 1
+        
+
 
     return zero_counts, through_zero_counts
 
@@ -68,8 +76,8 @@ def main():
 
         zero_counts, passes = solve_safe_password(puzzle_input)
         print(f"\n{'='*50}")
-        print(f"Zero counts: {zero_counts}")
-        print(f"Passes through zero: {passes}")
+        print(f"Part 1 - Times landing on 0: {zero_counts}")
+        print(f"Part 2 - Total times passing through 0: {passes}")
         print(f"{'='*50}")
         
     except FileNotFoundError:

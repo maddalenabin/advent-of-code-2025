@@ -25,6 +25,22 @@ def if_pattern_id(n):
 
     return first_half == second_half
 
+def is_periodic(n):
+    """
+    Check if n is formed by a sequence of digits repeated at least twice.
+    """
+    s = str(n)
+    length = len(s)
+
+    for pattern_len in range(1, (length // 2) + 1):
+        if length % pattern_len == 0:
+            pattern = s[:pattern_len]
+            multiplier = length // pattern_len
+
+            if pattern * multiplier == s:
+                return True 
+    return False           
+
 def solution_function(input_text: str):
     """
     Solve the task: loops over the ranges provided and checks for invalid pattern
@@ -40,20 +56,15 @@ def solution_function(input_text: str):
         start_str, end_str = r.split("-")
         start = int(start_str)
         end = int(end_str)
-        # print(f"\nrange: {r}")
 
         # iterate throught the range
-        for num in range(start, end+1):
-            if str(num)[0] == 0:
+        for num in range(start, end + 1):
+            if is_periodic(num) and num not in invalid_ids_found:
                 invalid_ids_found.append(num)
-                total_sum += num
-            elif if_pattern_id(num):
-                invalid_ids_found.append(num)
-                total_sum += num
 
-    print(f"Found IDs: {invalid_ids_found}")
+    # print(f"Found IDs: {invalid_ids_found}")
 
-    return total_sum
+    return sum(invalid_ids_found)
 
 
 def main():

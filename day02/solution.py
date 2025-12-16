@@ -70,7 +70,7 @@ def solution_function(input_text: str):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", type=str, 
-                        default="input.txt",
+                        default="input.txct",
                         help="input file")
     
     args = parser.parse_args()
